@@ -1,47 +1,47 @@
 #include "calculations.h"
-#include <unordered_map>
 
 using namespace std;
 
-int get_character_points(const char c)
+int get_character_points(const wchar_t c)
 {
-    unordered_map<char, int> points_map = {
-        {'A', 1},
-        {'D', 1},
-        {'E', 1},
-        {'I', 1},
-        {'N', 1},
-        {'R', 1},
-        {'S', 1},
-        {'T', 1},
-        {'G', 2},
-        {'L', 2},
-        {'O', 2},
-        {'B', 3},
-        {'F', 3},
-        {'H', 3},
-        {'K', 3},
-        {'M', 3},
-        {'V', 3},
-        {'P', 4},
-        {'U', 4},
-        {'Å', 4},
-        {'Ä', 4},
-        {'Ö', 4},
-        {'J', 7},
-        {'U', 7},
-        {'C', 8},
-        {'X', 8},
-        {'Z', 8}};
+    unordered_map<wchar_t, int> points_map = {
+        {L'A', 1},
+        {L'D', 1},
+        {L'E', 1},
+        {L'I', 1},
+        {L'N', 1},
+        {L'R', 1},
+        {L'S', 1},
+        {L'T', 1},
+        {L'G', 2},
+        {L'L', 2},
+        {L'O', 2},
+        {L'B', 3},
+        {L'F', 3},
+        {L'H', 3},
+        {L'K', 3},
+        {L'M', 3},
+        {L'V', 3},
+        {L'P', 4},
+        {L'U', 4},
+        {L'Å', 4},
+        {L'Ä', 4},
+        {L'Ö', 4},
+        {L'J', 7},
+        {L'Y', 7},
+        {L'C', 8},
+        {L'X', 8},
+        {L'Z', 8}};
 
-    return points_map[c];
+    auto it = points_map.find(c);
+    return (it != points_map.end()) ? it->second : 0;
 }
 
-int get_word_points(const string str)
+int get_word_points(const wstring str)
 {
     int points = 0;
 
-    for (const char c : str)
+    for (const wchar_t c : str)
     {
         points += get_character_points(c);
     }

@@ -10,6 +10,7 @@
 #include <filesystem>
 
 #include "permutations.h"
+#include "board.h"
 
 using namespace std::chrono;
 
@@ -33,7 +34,7 @@ int main(int argc, char const *argv[])
     std::wofstream outFile("../output/result.txt");
     outFile.imbue(std::locale());
 
-    vector<wchar_t> rack = {L'k', L'a', L't', L't', L'e', L'n', L'å', L'ä', L'k', L'a', L't', L't', L'e', L'n', L'å', L'ä', L'k', L'a', L't', L't', L'e', L'n', L'å', L'ä', L'k', L'a', L't', L't', L'e', L'n', L'å', L'ä'};
+    vector<wchar_t> rack = {L'k', L'a', L't', L't', L'e'};
     auto start = high_resolution_clock::now();
     auto valid_words = get_valid_words(rack);
     auto end = high_resolution_clock::now();
@@ -45,5 +46,9 @@ int main(int argc, char const *argv[])
     {
         outFile << word << L'\n';
     }
+
+    Board board;
+    board.read_board("../output/board.txt");
+    board.print();
     return 0;
 }
