@@ -3,6 +3,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "board.h"
+
 unordered_set<wstring> get_valid_words(const vector<wchar_t> &characters)
 {
     auto dict = get_dictionary();

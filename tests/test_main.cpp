@@ -7,9 +7,21 @@
 
 using namespace std;
 
-static vector<vector<wchar_t>> make_empty_board()
+static vector<vector<Position>> make_empty_board()
 {
-    return vector<vector<wchar_t>>(15, vector<wchar_t>(15, L' '));
+    vector<vector<Position>> board(15, vector<Position>(15));
+
+    for (int i = 0; i < 15; ++i)
+    {
+        for (int j = 0; j < 15; ++j)
+        {
+            board[i][j].x = i;
+            board[i][j].y = j;
+            board[i][j].value = L' ';
+        }
+    }
+
+    return board;
 }
 
 TEST(DictionaryTest, ContainsKnownWord)
@@ -131,7 +143,7 @@ TEST(BoardFunctionTest, GetValue)
 {
     Board board;
     auto b = make_empty_board();
-    b[2][3] = L'Å';
+    b[2][3].value = L'Å';
     board.board = b;
     EXPECT_EQ(board.get_value(Position{2, 3}), L'Å');
 }
@@ -145,7 +157,7 @@ TEST(BoardFunctionTest, EmptyAndPlayedAndPlayable)
     EXPECT_FALSE(board.is_played(Position{7, 7}));
     EXPECT_TRUE(board.is_playable_square(Position{7, 7}));
 
-    board.board[7][7] = L'a';
+    board.board[7][7].value = L'a';
     EXPECT_FALSE(board.is_empty(Position{7, 7}));
     EXPECT_TRUE(board.is_played(Position{7, 7}));
     EXPECT_FALSE(board.is_playable_square(Position{7, 7}));
@@ -158,7 +170,7 @@ TEST(BoardFunctionTest, IsValidStartSquare)
 
     EXPECT_FALSE(board.is_valid_start_square(Position{7, 7}));
 
-    board.board[7][7] = L'b';
+    board.board[7][7].value = L'b';
 
     EXPECT_TRUE(board.is_valid_start_square(Position{7, 7}));
 
@@ -174,7 +186,7 @@ TEST(BoardFunctionTest, GetStartSquaresOnEmptyAndSingleTile)
     auto starts = board.get_start_squares();
     EXPECT_TRUE(starts.empty());
 
-    board.board[7][7] = L'x';
+    board.board[7][7].value = L'x';
 
     starts = board.get_start_squares();
     ASSERT_EQ(starts.size(), 1u);
@@ -202,7 +214,7 @@ TEST(BoardFunctionTest, GetHorizontalAndVerticalWord)
     auto full = make_empty_board();
     for (int x = 0; x < 3; ++x)
         for (int y = 0; y < 3; ++y)
-            full[x][y] = b[x][y];
+            full[x][y].value = b[x][y];
     board.board = full;
 
     auto hw = board.get_horizontal_word(Position{0, 1});
@@ -216,11 +228,11 @@ TEST(BoardFunctionTest, GetWordsFromPosition)
 {
     Board board;
     auto full = make_empty_board();
-    full[0][0] = L'A';
-    full[0][1] = L'B';
-    full[0][2] = L'C';
-    full[1][1] = L'X';
-    full[2][1] = L'Y';
+    full[0][0].value = L'A';
+    full[0][1].value = L'B';
+    full[0][2].value = L'C';
+    full[1][1].value = L'X';
+    full[2][1].value = L'Y';
     board.board = full;
 
     auto c1 = board.get_words_from_position(Position{0, 1}, HORIZONTAL);
@@ -230,8 +242,8 @@ TEST(BoardFunctionTest, GetWordsFromPosition)
     auto c2 = board.get_words_from_position(Position{1, 1}, VERTICAL);
     EXPECT_TRUE(c2.empty());
 
-    full[1][0] = L'D';
-    full[1][2] = L'E';
+    full[1][0].value = L'D';
+    full[1][2].value = L'E';
     board.board = full;
 
     auto c3 = board.get_words_from_position(Position{1, 1}, VERTICAL);
