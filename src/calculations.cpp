@@ -31,7 +31,34 @@ int get_character_points(const wchar_t c)
         {L'Y', 7},
         {L'C', 8},
         {L'X', 8},
-        {L'Z', 8}};
+        {L'Z', 8},
+        {L'a', 1},
+        {L'd', 1},
+        {L'e', 1},
+        {L'i', 1},
+        {L'n', 1},
+        {L'r', 1},
+        {L's', 1},
+        {L't', 1},
+        {L'g', 2},
+        {L'l', 2},
+        {L'o', 2},
+        {L'b', 3},
+        {L'f', 3},
+        {L'h', 3},
+        {L'k', 3},
+        {L'm', 3},
+        {L'v', 3},
+        {L'p', 4},
+        {L'u', 4},
+        {L'å', 4},
+        {L'ä', 4},
+        {L'ö', 4},
+        {L'j', 7},
+        {L'y', 7},
+        {L'c', 8},
+        {L'x', 8},
+        {L'z', 8}};
 
     auto it = points_map.find(c);
     return (it != points_map.end()) ? it->second : 0;
@@ -47,4 +74,11 @@ int get_word_points(const wstring str)
     }
 
     return points;
+}
+
+bool isValidSwedishCharacter(wchar_t c)
+{
+    return (c >= L'A' && c <= L'Z') || (c >= L'a' && c <= L'z') ||
+           c == L'Å' || c == L'Ä' || c == L'Ö' ||
+           c == L'å' || c == L'ä' || c == L'ö';
 }

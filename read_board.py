@@ -93,7 +93,7 @@ def read_tile(tile_img: Image.Image, tile_name: str = None) -> str:
         config='--psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ'
     )
     text = unicodedata.normalize('NFC', text.strip().upper())
-    return text.strip().upper() or ' '
+    return text.strip().lower() or ' '
             
 def read_tiles():
     board = []

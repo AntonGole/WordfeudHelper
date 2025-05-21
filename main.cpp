@@ -14,13 +14,6 @@
 
 using namespace std::chrono;
 
-bool isValidSwedishCharacter(wchar_t c)
-{
-    return (c >= L'A' && c <= L'Z') || (c >= L'a' && c <= L'z') ||
-           c == L'Å' || c == L'Ä' || c == L'Ö' ||
-           c == L'å' || c == L'ä' || c == L'ö';
-}
-
 int main(int argc, char const *argv[])
 {
     std::locale::global(std::locale("sv_SE.utf8"));
@@ -49,6 +42,14 @@ int main(int argc, char const *argv[])
 
     Board board;
     board.read_board("../output/board.txt");
+
+    Play play;
+    vector<Position> positions{{Position{4, 3}, Position{4, 4}, Position{4, 5}, Position{4, 6}}};
+    play.positions = positions;
+    play.dir = HORIZONTAL;
+
+    cout << board.get_play_points(play) << endl;
+
     board.print();
     return 0;
 }
